@@ -13,7 +13,7 @@ connect_to_db(app)
 def homepage():
     """Simple greeting."""
 
-    return render_template("home.html", secret=os.environ['BEST_SPECIES'])
+    return render_template("home.html", secret=os.environ["BEST_SPECIES"])
 
 
 @app.route("/cats")
@@ -21,8 +21,7 @@ def cats():
     """Show list of cats."""
 
     cats = Cat.query.all()
-    return render_template("cats.html",
-                           cats=cats)
+    return render_template("cats.html", cats=cats)
 
 
 @app.route("/err")
@@ -33,4 +32,4 @@ def raise_err():
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0')   # NOTE: not in debug mode!
+    app.run(debug=True)

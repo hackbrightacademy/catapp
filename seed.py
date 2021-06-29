@@ -12,9 +12,11 @@ def seed_cats():
     db.session.add(tom)
     db.session.commit()
 
-if __name__ == "__main__":
-    from flask import Flask   # make fake app
-    app = Flask(__name__)
-    connect_to_db(app)        # connect DB to it
 
-    seed_cats()               # seed starter data
+if __name__ == "__main__":
+    from flask import Flask  # make fake app
+
+    app = Flask(__name__)
+    connect_to_db(app)  # connect DB to it
+
+    seed_cats()  # seed starter data
