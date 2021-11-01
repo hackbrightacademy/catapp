@@ -2,38 +2,30 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.13
--- Dumped by pg_dump version 9.5.13
+-- Dumped from database version 13.4 (Ubuntu 13.4-4.pgdg18.04+1)
+-- Dumped by pg_dump version 13.4 (Ubuntu 13.4-4.pgdg18.04+1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SELECT pg_catalog.set_config('search_path', '', false);
 SET check_function_bodies = false;
+SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
---
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
---
-
-CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
-
-
---
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
---
-
-COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
-
-
+ALTER TABLE ONLY public.cat DROP CONSTRAINT cat_pkey;
+ALTER TABLE public.cat ALTER COLUMN id DROP DEFAULT;
+DROP SEQUENCE public.cat_id_seq;
+DROP TABLE public.cat;
 SET default_tablespace = '';
 
-SET default_with_oids = false;
+SET default_table_access_method = heap;
 
 --
--- Name: cat; Type: TABLE; Schema: public; Owner: vagrant
+-- Name: cat; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.cat (
@@ -42,10 +34,8 @@ CREATE TABLE public.cat (
 );
 
 
-ALTER TABLE public.cat OWNER TO vagrant;
-
 --
--- Name: cat_id_seq; Type: SEQUENCE; Schema: public; Owner: vagrant
+-- Name: cat_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE public.cat_id_seq
@@ -56,38 +46,41 @@ CREATE SEQUENCE public.cat_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.cat_id_seq OWNER TO vagrant;
-
 --
--- Name: cat_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: vagrant
+-- Name: cat_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
 ALTER SEQUENCE public.cat_id_seq OWNED BY public.cat.id;
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: vagrant
+-- Name: cat id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.cat ALTER COLUMN id SET DEFAULT nextval('public.cat_id_seq'::regclass);
 
 
 --
--- Name: cat_pkey; Type: CONSTRAINT; Schema: public; Owner: vagrant
+-- Data for Name: cat; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.cat (id, name) FROM stdin;
+\.
+
+
+--
+-- Name: cat_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.cat_id_seq', 1, false);
+
+
+--
+-- Name: cat cat_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.cat
     ADD CONSTRAINT cat_pkey PRIMARY KEY (id);
-
-
---
--- Name: SCHEMA public; Type: ACL; Schema: -; Owner: postgres
---
-
-REVOKE ALL ON SCHEMA public FROM PUBLIC;
-REVOKE ALL ON SCHEMA public FROM postgres;
-GRANT ALL ON SCHEMA public TO postgres;
-GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
 --
